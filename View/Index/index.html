@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>{$Think.config.APP_TITLE}</title>
+		<meta name="Keywords" content="WST3.0后台">
+		<meta name="Description" content="WST3.0后台">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+
+		<link rel="stylesheet" href="/static/css/zui.min.css" />
+		<link rel="stylesheet" href="/static/css/main_m.css" />
+		<!--[if lte IE 6]>
+			<link rel="stylesheet" type="text/css" href="static/css/ie/bootstrap-ie6.min.css">
+		<![endif]-->
+		<!--[if lte IE 7]>
+			<link rel="stylesheet" type="text/css" href="static/css/ie/ie.css">
+		<![endif]-->
+		<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="/static/js/lib/jquery.form.js"></script>
+		<script type="text/javascript" src="/static/js/lib/zui.min.js"></script>
+		<script type="text/javascript" src="/static/js/lib/datetimepicker.min.js"></script>
+		<script type="text/javascript" src="/static/js/lib/chosen.min.js"></script>
+		<script type="text/javascript" src="/static/js/lib/in-min.js"></script>
+		<script type="text/javascript" src="/static/js/lib/main_m.js"></script>
+		<script type="text/javascript" src="/static/js/lib/validate.js"></script>
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+			<script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+			<script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+		<script type="text/javascript"> 
+			$(function(){
+				eventOfMenus();
+				addTabToNavBar('首页','/Home/Index/welcome',false);
+			});	
+	  	</script>
+
+	</head>
+	<body>
+	<!-- 头部 -->
+    <div class="header">
+		<div class="logo"><a href="/"><img src="{$Think.config.MEICI_LOGO}" alt="" title="" /></a></div>
+		<div class="logo1">{$Think.config.SYSTEM_NAME}</div>
+		<div class="nav nav-primary">
+			<span class="color-back"><?php echo $userInfo['username'];?> <?php echo !$groupInfo['group_name']?'':'['.$groupInfo['group_name'].']'?></span>
+			<a href="/index/logout" title="登出"><i class="icon icon-signout"></i></a>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<!-- 左侧导航 -->
+	<div class="leftSidebar"> 
+		<ul class="partent_side">
+		
+			<li><div class="menu_left" url="/Home/Index/welcome">首页</div></li>
+			<volist name="menus" id="vo">
+			<li><div class="menu_left" url="{$vo['url']}">{$vo['name']}
+					<?php if($vo['_child']) { ?>
+						<em class="sjlg"></em>
+					<?php } ?>
+				</div>
+				<div class="menu_lnext">
+					<ul><volist name="vo['_child']" id="svo"><li url="{$svo['url']}">{$svo['name']}</li></volist></ul>
+				</div>
+			</li>
+			</volist>
+		</ul>
+		<div class="menu_turn_left" title="收起"><i class="icon icon-chevron-left"></i></div>
+    </div>
+	<!-- 右侧导航 -->
+	<div class="rightSidebar"> 
+		<div class="pageTit">
+			<div class="menu_turn_right" title="展开"><i class="icon icon-chevron-right"></i></div>
+			<ul id="HomeTab" class="nav nav-secondary"></ul>
+			<div class="clear"></div>
+		</div>
+		<div id="HomeTabContent" class="tab-content"></div>
+		
+	</div>
+	<script type="text/javascript" charset="utf-8">
+		$(function() {
+			$('.leftSidebar .menu_turn_left').click(function() {
+				$('.leftSidebar').animate({ left: -215}, "normal", function() {
+					$('.rightSidebar').animate({ left: 0}, "normal",function(){
+						$('.rightSidebar .pageTit').animate({"margin-left":30},"normal");
+					});
+				});
+			});
+
+			$('.rightSidebar .pageTit .menu_turn_right').click(function() {
+				$('.rightSidebar .pageTit').animate({"margin-left":8},"normal",function() {
+					$('.rightSidebar').animate({ left: 215}, "normal", function() {
+						$('.leftSidebar').animate({ left: 0}, "normal"); 
+					});
+				});
+			});
+		});
+	</script>
+	
+  </body>
+</html>
