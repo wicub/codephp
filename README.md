@@ -1,3 +1,5 @@
+this is a little part of code.
+
 Structure
  	M:Model
  	V:View
