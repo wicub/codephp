@@ -8,3 +8,5 @@ Structure
 
 This code is to process data returned from redis commodities rack up and down and update the price and the operation of inventory.
 
+	
+Access  : TaskIndex/doTaskData
